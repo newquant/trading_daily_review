@@ -3,6 +3,7 @@ from datetime import datetime
 from openpyxl import Workbook
 
 from robot.css import normal_style, highlight_style
+from robot.mailbot import do_send
 from robot.testbu import *
 from robot.utils import *
 
@@ -189,3 +190,5 @@ def generate_xlsx(file_name: str) -> None:
 if __name__ == '__main__':
     filename = 'data/复盘数据' + datetime.now().strftime('%Y-%m-%dT%H:%M:%S') + '.xlsx'
     generate_xlsx(file_name=filename)
+
+    do_send(["517000341@qq.com"], filename)
