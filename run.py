@@ -154,8 +154,11 @@ def generate_xlsx(file_name: str) -> None:
                 if limit_up_broken["surge_reason"] == "":
                     sheet.cell(8 + len(limit_up_list) + idx, 3).value = "其他"
                 else:
-                    sheet.cell(8 + len(limit_up_list) + idx, 3).value = ','.join(
-                        [plates['plate_name'] for plates in limit_up_broken['surge_reason']['related_plates']])
+                    if limit_up_broken['surge_reason'].keys().__contains__('related_plates'):
+                        sheet.cell(8 + len(limit_up_list) + idx, 3).value = ','.join(
+                            [plates['plate_name'] for plates in limit_up_broken['surge_reason']['related_plates']])
+                    else:
+                        sheet.cell(8 + len(limit_up_list) + idx, 3).value = "其他"
                 # 换手率
                 sheet.cell(8 + len(limit_up_list) + idx, 4).value = handle_percent(limit_up_broken["turnover_ratio"])
                 # 首次封板
@@ -179,8 +182,11 @@ def generate_xlsx(file_name: str) -> None:
                 if limit_up_broken["surge_reason"] == "":
                     sheet.cell(8 + len(limit_up_list) + idx, 13).value = "其他"
                 else:
-                    sheet.cell(8 + len(limit_up_list) + idx, 13).value = limit_up_broken["surge_reason"][
-                        "stock_reason"]
+                    if limit_up_broken['surge_reason'].keys().__contains__('stock_reason'):
+                        sheet.cell(8 + len(limit_up_list) + idx, 13).value = limit_up_broken["surge_reason"][
+                            "stock_reason"]
+                    else:
+                        sheet.cell(8 + len(limit_up_list) + idx, 13).value = "其他"
 
         workbook.close()
         # 保存文件
@@ -191,4 +197,6 @@ if __name__ == '__main__':
     filename = 'data/复盘数据' + datetime.now().strftime('%Y-%m-%dT%H:%M:%S') + '.xlsx'
     generate_xlsx(file_name=filename)
 
-    do_send(["517000341@qq.com"], filename)
+    mail_list = []
+
+    do_send(mail_list, filename)

@@ -38,8 +38,7 @@ def attach_payload(xlsx_file: str):
 def do_send(to_addrs: [], xlsx_file: str):
     multipart = MIMEMultipart()
 
-    content = 'hello, this is email content.\n' \
-              '每日复盘报告'
+    content = 'hello, this is 每日复盘报告'
     text_apart = MIMEText(content)
 
     multipart.attach(text_apart)
