@@ -194,9 +194,4 @@ def generate_xlsx(file_name: str) -> None:
 
 
 if __name__ == '__main__':
-    filename = 'data/复盘数据' + datetime.now().strftime('%Y-%m-%dT%H:%M:%S') + '.xlsx'
-    generate_xlsx(file_name=filename)
-
-    mail_list = []
-
-    do_send(mail_list, filename)
+    generate_xlsx(file_name="./data/复盘数据" + datetime.now().strftime('%Y-%m-%d') + ".xlsx")
